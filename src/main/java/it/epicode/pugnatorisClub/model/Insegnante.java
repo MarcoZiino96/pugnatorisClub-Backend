@@ -20,6 +20,8 @@ public class Insegnante {
 
     private List<ArtiMarziali> discipline;
 
+    private String fotoProfilo;
+
     @OneToMany(mappedBy = "maestro")
     private List<Corso> corsi;
 }

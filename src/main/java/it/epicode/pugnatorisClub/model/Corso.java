@@ -8,6 +8,7 @@ import it.epicode.pugnatorisClub.enums.Durata;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,20 +26,16 @@ public class Corso {
 
     private int numeroMassimoPartecipanti;
 
+    private double costoMensile;
+
     private Durata durata;
 
-//    @ManyToMany(cascade = CascadeType.REMOVE)
-//    @JoinTable(name = "corso_utente",
-//    joinColumns = @JoinColumn(name = "corso_id"),
-//    inverseJoinColumns = @JoinColumn(name = "utente_id"))
-//    private List<Utente> utentiIscritti;
-
     @JsonIgnore
-    @OneToMany(mappedBy = "corso")
+    @OneToMany(mappedBy = "corso", cascade = CascadeType.REMOVE)
     private List<Turno> turni;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "corso")
+    @OneToMany(mappedBy = "corso", cascade = CascadeType.REMOVE)
     private List<Prenotazione> prenotazioni;
 
     @JsonIgnore
@@ -47,6 +44,6 @@ public class Corso {
     private Insegnante maestro;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "corso")
+    @OneToMany(mappedBy = "corso",  cascade = CascadeType.REMOVE)
     private List<Abbonamento> abbonati;
 }

@@ -3,8 +3,7 @@ package it.epicode.pugnatorisClub.model;
 import it.epicode.pugnatorisClub.enums.GiornoSettimana;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -18,9 +17,9 @@ public class Turno {
 
     private List<GiornoSettimana> giorniLezione;
 
-    private LocalDateTime inizioLezione;
+    private LocalTime inizioLezione;
 
-    private LocalDateTime fineLezione;
+    private LocalTime fineLezione;
 
     @ManyToOne
     @JoinColumn(name = "evento_id")

@@ -35,16 +35,10 @@ public class Utente implements UserDetails {
 
     private String email;
 
-    private String avatar;
-
     private String fotoProfilo;
 
     @Enumerated(EnumType.STRING)
     private List<Ruolo> ruoli= List.of(Ruolo.USER);
-
-//    @JsonIgnore
-//    @ManyToMany(mappedBy = "utentiIscritti", cascade = CascadeType.REMOVE)
-//    private List<Corso> corsiAttivi;
 
     @JsonIgnore
     @OneToMany(mappedBy = "utente")

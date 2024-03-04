@@ -5,6 +5,8 @@ import it.epicode.pugnatorisClub.enums.Durata;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 public class Abbonamento {
@@ -15,10 +17,13 @@ public class Abbonamento {
 
    private Durata durata;
 
+   private LocalDate dataAttivazione;
+
+   private LocalDate dataScadenza;
+
    @ManyToOne
    @JoinColumn(name = "corso_id")
    private Corso corso;
-
 
    @ManyToOne
    @JoinColumn(name = "utente_id")
