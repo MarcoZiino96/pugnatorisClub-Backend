@@ -25,8 +25,8 @@ public class UtenteService {
     @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
-    private JavaMailSenderImpl javaMailSender;
+//    @Autowired
+//    private JavaMailSenderImpl javaMailSender;
 
     public Page<Utente> getAll(Pageable pageable){
         return utenteRepository.findAll(pageable);
@@ -49,7 +49,7 @@ public class UtenteService {
         utente.setPassword(encoder.encode(utenteRequest.getPassword()));
         utente.setRuolo(Ruolo.USER);
         utente.setEmail(utenteRequest.getEmail());
-        sendEmail(utenteRequest.getEmail());
+//        sendEmail(utenteRequest.getEmail());
         return  utenteRepository.save(utente);
     }
 
@@ -83,11 +83,11 @@ public class UtenteService {
 
     }
 
-    public void sendEmail(String email){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Registrazione alla palestra PugnatorisClub");
-        message.setText("Benvenuto sulla nostra applicazione, registrazione avvenuta con successo.Dai un occhiata ai nostri corsi e prenota una lezione di prova gratuita");
-        javaMailSender.send(message);
-    }
+//    public void sendEmail(String email){
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(email);
+//        message.setSubject("Registrazione alla palestra PugnatorisClub");
+//        message.setText("Benvenuto sulla nostra applicazione, registrazione avvenuta con successo.Dai un occhiata ai nostri corsi e prenota una lezione di prova gratuita");
+//        javaMailSender.send(message);
+//    }
 }

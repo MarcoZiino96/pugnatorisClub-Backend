@@ -29,6 +29,7 @@ public class Utente implements UserDetails {
     @Column(unique = true)
     private  String username;
 
+    @JsonIgnore
     private String password;
 
     private LocalDate dataNascita;
