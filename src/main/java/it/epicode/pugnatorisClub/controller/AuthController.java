@@ -2,6 +2,7 @@ package it.epicode.pugnatorisClub.controller;
 
 
 import it.epicode.pugnatorisClub.exception.BadRequestException;
+import it.epicode.pugnatorisClub.exception.CustomResponse;
 import it.epicode.pugnatorisClub.exception.LoginFaultException;
 import it.epicode.pugnatorisClub.model.Utente;
 import it.epicode.pugnatorisClub.request.LoginRequest;
@@ -10,6 +11,8 @@ import it.epicode.pugnatorisClub.security.JwtTools;
 import it.epicode.pugnatorisClub.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -30,12 +33,12 @@ public class AuthController {
     PasswordEncoder encoder;
 
     @PostMapping("/auth/register")
-    public Utente register(@RequestBody @Validated UtenteRequest utenteRequest, BindingResult bindingResult){
+    public ResponseEntity<CustomResponse>register(@RequestBody @Validated UtenteRequest utenteRequest, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         }
 
-        return utenteService.save(utenteRequest);
+        return CustomResponse.success(HttpStatus.OK.toString(), utenteService.save(utenteRequest), HttpStatus.OK);
     }
 
     @PostMapping("/auth/login")

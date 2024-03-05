@@ -28,6 +28,6 @@ public class UtenteRequest{
             message = "Password deve contenere: 1 lettera maiuscola, 1 lettera minuscola, 1 numero, 1 carattere speciale, Min 8 caratteri")
     private String password;
 
-    @NotNull(message = "data di nascita obbligatorio")
+    @NotNull(message = "data di nascita obbligatoria")
     private LocalDate dataNascita;
 }

@@ -4,6 +4,8 @@ import it.epicode.pugnatorisClub.enums.ArtiMarziali;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,10 +20,25 @@ public class Insegnante {
 
     private String cognome;
 
+    private LocalDate dataNascita;
+
     private List<ArtiMarziali> discipline;
+
+    public Insegnante() {
+        this.discipline = new ArrayList<>();
+    }
 
     private String fotoProfilo;
 
     @OneToMany(mappedBy = "maestro")
     private List<Corso> corsi;
+
+
+    public void addDisciplina(String artiMarziali){
+        discipline.add(ArtiMarziali.valueOf(artiMarziali));
+    }
+
+    public  void removeDisciplina(ArtiMarziali artiMarziali){
+        discipline.remove(artiMarziali);
+    }
 }

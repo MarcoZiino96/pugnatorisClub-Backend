@@ -1,9 +1,11 @@
 package it.epicode.pugnatorisClub.security;
 
 
+import it.epicode.pugnatorisClub.enums.Ruolo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,6 +29,11 @@ public class SecurityChain {
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll());
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente/**").hasAuthority(Ruolo.ADMIN.name()));
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/insegnante").permitAll());
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/insegnante/**").hasAuthority(Ruolo.ADMIN.name()));
+
+
 
 
         return httpSecurity.build();

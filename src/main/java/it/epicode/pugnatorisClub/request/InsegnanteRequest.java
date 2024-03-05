@@ -2,8 +2,10 @@ package it.epicode.pugnatorisClub.request;
 
 import it.epicode.pugnatorisClub.enums.ArtiMarziali;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -16,7 +18,7 @@ public class InsegnanteRequest {
     @NotBlank(message = "cognome obbligatorio")
     private String cognome;
 
-    @NotBlank(message = "discipline obbligatorio")
-    private List<ArtiMarziali> discipline;
+    @NotNull(message = "data di nascita obbligatorio")
+    private LocalDate dataNascita;
 
 }
