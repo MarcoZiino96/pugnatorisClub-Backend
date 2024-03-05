@@ -38,7 +38,7 @@ public class Utente implements UserDetails {
     private String fotoProfilo;
 
     @Enumerated(EnumType.STRING)
-    private List<Ruolo> ruoli= List.of(Ruolo.USER);
+    private Ruolo ruolo;
 
     @JsonIgnore
     @OneToMany(mappedBy = "utente")
@@ -50,11 +50,6 @@ public class Utente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        HashSet<GrantedAuthority> authorities = new HashSet<GrantedAuthority>(ruoli.size());
-
-        for (Ruolo r : ruoli)
-            authorities.add(new SimpleGrantedAuthority(r.name()));
-
-        return authorities;
+        return List.of(new SimpleGrantedAuthority(ruolo.name()));
     }
 }
