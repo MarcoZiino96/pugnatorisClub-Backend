@@ -1,7 +1,6 @@
 package it.epicode.pugnatorisClub.enums;
 
 public enum ArtiMarziali {
-
         KARATE,
         TAEKWONDO,
         JUDO,
@@ -17,6 +16,5 @@ public enum ArtiMarziali {
         KICKBOXING,
         SANSHOU,
         ESKRIMA;
-
     }
 

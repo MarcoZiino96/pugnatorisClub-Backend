@@ -15,6 +15,7 @@ public class Abbonamento {
    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+   @Enumerated(EnumType.STRING)
    private Durata durata;
 
    private LocalDate dataAttivazione;

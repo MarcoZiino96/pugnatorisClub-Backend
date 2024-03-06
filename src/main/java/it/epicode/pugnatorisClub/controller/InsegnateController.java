@@ -51,25 +51,25 @@ public class InsegnateController{
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<CustomResponse> saveInsegnante( @PathVariable int id,@RequestBody @Validated InsegnanteRequest insegnanteRequest, BindingResult bindingResult){
+    public ResponseEntity<CustomResponse> updateInsegnante( @PathVariable int id,@RequestBody @Validated InsegnanteRequest insegnanteRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors()) throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
 
         return CustomResponse.success(HttpStatus.OK.toString(),insegnanteService.update(id, insegnanteRequest), HttpStatus.OK);
     }
 
     @PatchMapping("upload/foto/{id}")
-    public ResponseEntity<CustomResponse> uploadAfotoProfilo(@PathVariable int id,@RequestParam("upload") MultipartFile file) throws IOException {
+    public ResponseEntity<CustomResponse> uploadfotoProfilo(@PathVariable int id,@RequestParam("upload") MultipartFile file) throws IOException {
             Insegnante insegnante = insegnanteService.uploadFotoProfilo(id, (String)
                     cloudinary.uploader().upload(file.getBytes(), new HashMap()).get("url"));
             return CustomResponse.success(HttpStatus.OK.toString(), insegnante, HttpStatus.OK);
     }
 
 
-    @PatchMapping("upload/disciplina/{id}")
-    public ResponseEntity<CustomResponse> uploadDiscipline(@PathVariable int id, @RequestParam("disciplina") String artiMarziali){
-        return CustomResponse.success(HttpStatus.OK.toString(),insegnanteService.updateDiscipline(id, artiMarziali), HttpStatus.OK);
+    @PatchMapping("delete/disciplina/{id}")
+    public ResponseEntity<CustomResponse> deleteDisciplina(@PathVariable int id, @RequestParam("deleteDisciplina") ArtiMarziali artiMarziali){
+        insegnanteService.deleteDisciplina(id,artiMarziali);
+        return CustomResponse.emptyResponse("La disciplina con nome = "+artiMarziali+" è stata cancellata", HttpStatus.OK);
     }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomResponse> deleteInsegnante(@PathVariable int id){

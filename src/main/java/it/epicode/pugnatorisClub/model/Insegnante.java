@@ -1,6 +1,8 @@
 package it.epicode.pugnatorisClub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.epicode.pugnatorisClub.enums.ArtiMarziali;
+import it.epicode.pugnatorisClub.enums.GiornoSettimana;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,23 +24,23 @@ public class Insegnante {
 
     private LocalDate dataNascita;
 
-    private List<ArtiMarziali> discipline;
+    @Enumerated(EnumType.STRING)
+    private List<ArtiMarziali> discipline = new ArrayList<>();
 
-    public Insegnante() {
-        this.discipline = new ArrayList<>();
-    }
+
 
     private String fotoProfilo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "maestro")
     private List<Corso> corsi;
 
 
-    public void addDisciplina(String artiMarziali){
-        discipline.add(ArtiMarziali.valueOf(artiMarziali));
+    public void addDisciplina(ArtiMarziali disciplina){
+            this.discipline.add(disciplina);
     }
 
-    public  void removeDisciplina(ArtiMarziali artiMarziali){
-        discipline.remove(artiMarziali);
+    public  void removeDisciplina(ArtiMarziali disciplina){
+        discipline.remove(disciplina);
     }
 }

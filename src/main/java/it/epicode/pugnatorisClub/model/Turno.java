@@ -4,6 +4,7 @@ import it.epicode.pugnatorisClub.enums.GiornoSettimana;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,8 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private List<GiornoSettimana> giorniLezione;
+    @Enumerated(EnumType.STRING)
+    private List<GiornoSettimana> giorniLezione = new ArrayList<>();
 
     private LocalTime inizioLezione;
 
@@ -25,4 +27,13 @@ public class Turno {
     @JoinColumn(name = "evento_id")
     private Corso corso;
 
+
+        public void addGiorno(GiornoSettimana giorno){
+            giorniLezione.add(giorno);
+        }
+
+
+    public void removeGiorno(GiornoSettimana giorno){
+            giorniLezione.remove(giorno);
+    }
 }

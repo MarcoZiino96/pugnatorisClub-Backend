@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,5 +21,8 @@ public class InsegnanteRequest {
 
     @NotNull(message = "data di nascita obbligatorio")
     private LocalDate dataNascita;
+
+    @NotNull(message = "campo obbligatorio")
+    private List<ArtiMarziali> discipline;
 
 }
