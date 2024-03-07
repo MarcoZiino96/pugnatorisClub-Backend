@@ -17,7 +17,7 @@ public class Turno {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    private List<GiornoSettimana> giorniLezione = new ArrayList<>();
+    private GiornoSettimana giorniLezione;
 
     private LocalTime inizioLezione;
 
@@ -28,12 +28,12 @@ public class Turno {
     private Corso corso;
 
 
-        public void addGiorno(GiornoSettimana giorno){
-            giorniLezione.add(giorno);
-        }
-
-
-    public void removeGiorno(GiornoSettimana giorno){
-            giorniLezione.remove(giorno);
-    }
+//        public void addGiorno(GiornoSettimana giorno){
+//            giorniLezione.add(giorno);
+//        }
+//
+//
+//       public void removeGiorno(GiornoSettimana giorno){
+//            giorniLezione.remove(giorno);
+//    }
 }

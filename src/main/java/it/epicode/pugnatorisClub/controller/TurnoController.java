@@ -46,14 +46,6 @@ public class TurnoController {
         return CustomResponse.success(HttpStatus.OK.toString(),turnoService.update(id,  turnoRequest), HttpStatus.OK);
     }
 
-
-
-    @PatchMapping("delete/{id}")
-    public ResponseEntity<CustomResponse> deleteGIORNOTurno(@PathVariable int id, @RequestParam("deleteTurno") GiornoSettimana giorno){
-        turnoService.deleteGiornoTurno(id, giorno);
-        return CustomResponse.emptyResponse("Il giorno "+giorno+" è stata cancellata", HttpStatus.OK);
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomResponse> deleteInsegnante(@PathVariable int id){
         turnoService.delete(id);

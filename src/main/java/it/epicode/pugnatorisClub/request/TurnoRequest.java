@@ -11,7 +11,7 @@ import java.util.List;
 public class TurnoRequest {
 
     @NotNull(message = "campo obbligatorio")
-   private List<GiornoSettimana> giorniLezione;
+   private GiornoSettimana giorniLezione;
 
     @NotNull(message = "campo obbligatorio")
     private LocalTime inizioLezione;

@@ -27,12 +27,10 @@ public class Insegnante {
     @Enumerated(EnumType.STRING)
     private List<ArtiMarziali> discipline = new ArrayList<>();
 
-
-
     private String fotoProfilo;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "maestro")
+    @OneToMany(mappedBy = "maestro", cascade = CascadeType.REMOVE)
     private List<Corso> corsi;
 
 

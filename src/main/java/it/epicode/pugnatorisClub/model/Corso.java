@@ -4,6 +4,7 @@ package it.epicode.pugnatorisClub.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import it.epicode.pugnatorisClub.enums.ArtiMarziali;
 import it.epicode.pugnatorisClub.enums.Durata;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,7 +21,8 @@ public class Corso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String categoria;
+    @Enumerated(EnumType.STRING)
+    private ArtiMarziali categoria;
 
     private String descrizione;
 
@@ -28,6 +30,7 @@ public class Corso {
 
     private double costoMensile;
 
+    @Enumerated(EnumType.STRING)
     private Durata durata;
 
     @JsonIgnore
@@ -38,7 +41,7 @@ public class Corso {
     @OneToMany(mappedBy = "corso", cascade = CascadeType.REMOVE)
     private List<Prenotazione> prenotazioni;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "insegnante_id")
     private Insegnante maestro;

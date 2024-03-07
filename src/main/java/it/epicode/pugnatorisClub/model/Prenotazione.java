@@ -1,7 +1,10 @@
 package it.epicode.pugnatorisClub.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 
 @Entity
@@ -14,9 +17,14 @@ public class Prenotazione {
 
     @ManyToOne
     @JoinColumn(name = "corso_id")
+
     private Corso corso;
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
+
     private Utente utente;
+
+
+    private LocalDate dataPrenotazione;
 }
