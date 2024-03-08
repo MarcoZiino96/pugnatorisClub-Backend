@@ -35,6 +35,8 @@ public class SecurityChain {
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/turno/**").hasAuthority(Ruolo.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/corso/**").permitAll());
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/corso/**").hasAuthority(Ruolo.ADMIN.name()));
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/prenotazione/**").permitAll());
+
 
 
 

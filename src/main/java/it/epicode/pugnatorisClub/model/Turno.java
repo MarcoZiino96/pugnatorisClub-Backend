@@ -26,14 +26,4 @@ public class Turno {
     @ManyToOne
     @JoinColumn(name = "evento_id")
     private Corso corso;
-
-
-//        public void addGiorno(GiornoSettimana giorno){
-//            giorniLezione.add(giorno);
-//        }
-//
-//
-//       public void removeGiorno(GiornoSettimana giorno){
-//            giorniLezione.remove(giorno);
-//    }
 }

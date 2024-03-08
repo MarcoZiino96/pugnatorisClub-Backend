@@ -20,4 +20,7 @@ public class PrenotazioneRequest {
 
     @NotNull(message = ("campo obbligatorio"))
     private LocalDate dataPrenotazione;
+
+    @NotNull(message = ("campo obbligatorio"))
+    private  LocalDate dataScadenza;
 }

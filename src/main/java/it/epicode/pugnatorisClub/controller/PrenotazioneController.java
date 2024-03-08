@@ -44,7 +44,7 @@ public class PrenotazioneController{
 
         return CustomResponse.success(HttpStatus.OK.toString(),prenotazioneService.save(prenotazioneRequest), HttpStatus.OK);
     }
-    @PutMapping("/create")
+    @PutMapping("/update/{id}")
     public  ResponseEntity<CustomResponse> updatePrenotazione(@PathVariable int id,@RequestBody PrenotazioneRequest prenotazioneRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors()) throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
 
@@ -53,8 +53,9 @@ public class PrenotazioneController{
 
     @DeleteMapping("/delete/{id}")
 
-    public void deletePrenotazione(@PathVariable int id){
+    public ResponseEntity<CustomResponse> deletePrenotazione(@PathVariable int id){
         Prenotazione prenotazione = prenotazioneService.getPrenotazioneById(id);
         prenotazioneService.delete(id);
+        return CustomResponse.emptyResponse("La prenotazione con id = "+id+" è stato cancellato", HttpStatus.OK);
     }
 }

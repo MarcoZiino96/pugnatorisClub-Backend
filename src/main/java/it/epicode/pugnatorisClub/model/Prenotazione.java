@@ -25,6 +25,7 @@ public class Prenotazione {
 
     private Utente utente;
 
-
     private LocalDate dataPrenotazione;
+
+    private  LocalDate dataScadenza;
 }
