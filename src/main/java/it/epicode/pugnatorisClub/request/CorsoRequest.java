@@ -21,4 +21,8 @@ public class CorsoRequest {
 
     @NotNull(message = "durata del corso obbligatoria")
     private Durata durata;
+
+    @NotNull(message = "durata del corso obbligatoria")
+    private double costoMensile;
+
 }

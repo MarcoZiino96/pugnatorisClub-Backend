@@ -41,6 +41,7 @@ public class CorsoService{
             corso.setCategoria(corsoRequest.getCategoria());
             corso.setDescrizione(corsoRequest.getDescrizione());
             corso.setNumeroMassimoPartecipanti(corsoRequest.getNumeroMassimoPartecipanti());
+            corso.setCostoMensile(corsoRequest.getCostoMensile());
             return corsoRepository.save(corso);
         }
     }
@@ -48,17 +49,18 @@ public class CorsoService{
     public Corso update (long id, CorsoRequest corsoRequest){
         Corso corso = getCorsoById(id);
 
-        Optional<Corso> existingCorso = corsoRepository.findByCategoria(corsoRequest.getCategoria());
-        if (existingCorso.isPresent()) {
-            throw new RuntimeException("Gia esiste un corso per la categoria" + corsoRequest.getCategoria());
-        }
-        else {
+//        Optional<Corso> existingCorso = corsoRepository.findByCategoria(corsoRequest.getCategoria());
+//        if (existingCorso.isPresent()) {
+//            throw new RuntimeException("Gia esiste un corso per la categoria " + corsoRequest.getCategoria());
+//        }
+
             corso.setDurata(corsoRequest.getDurata());
             corso.setCategoria(corsoRequest.getCategoria());
             corso.setDescrizione(corsoRequest.getDescrizione());
             corso.setNumeroMassimoPartecipanti(corsoRequest.getNumeroMassimoPartecipanti());
+            corso.setCostoMensile(corsoRequest.getCostoMensile());
             return corsoRepository.save(corso);
-        }
+
     }
 
     public Corso updateInsegnante(int idInsegnate, long idCorso){

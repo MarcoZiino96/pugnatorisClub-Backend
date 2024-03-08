@@ -43,7 +43,7 @@ public class CorsoController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<CustomResponse> updateTurno( @PathVariable long id,@RequestBody @Validated CorsoRequest corsoRequest, BindingResult bindingResult){
+    public ResponseEntity<CustomResponse> updateCorso( @PathVariable long id,@RequestBody @Validated CorsoRequest corsoRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors()) throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
 
         return CustomResponse.success(HttpStatus.OK.toString(),corsoService.update(id, corsoRequest), HttpStatus.OK);
