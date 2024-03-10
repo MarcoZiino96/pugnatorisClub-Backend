@@ -24,7 +24,7 @@ public class Utente implements UserDetails {
 
     private  String nome;
 
-    private  String cognonome;
+    private  String cognome;
 
     @Column(unique = true)
     private  String username;

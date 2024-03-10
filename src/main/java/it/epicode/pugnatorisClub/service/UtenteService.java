@@ -44,7 +44,7 @@ public class UtenteService {
         Utente utente = new Utente();
 
         utente.setNome(utenteRequest.getNome());
-        utente.setCognonome(utenteRequest.getCognome());
+        utente.setCognome(utenteRequest.getCognome());
         utente.setUsername(utenteRequest.getUsername());
         utente.setDataNascita(utenteRequest.getDataNascita());
         utente.setPassword(encoder.encode(utenteRequest.getPassword()));
@@ -57,7 +57,7 @@ public class UtenteService {
     public Utente update(long id, UtenteRequest utenteRequest){
         Utente utente = getUtenteById(id);
         utente.setNome(utenteRequest.getNome());
-        utente.setCognonome(utenteRequest.getCognome());
+        utente.setCognome(utenteRequest.getCognome());
         utente.setUsername(utenteRequest.getUsername());
         utente.setDataNascita(utenteRequest.getDataNascita());
         utente.setEmail(utenteRequest.getEmail());
