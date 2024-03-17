@@ -24,12 +24,14 @@ public class SecurityChain {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.cors(AbstractHttpConfigurer::disable);
+
 
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll());
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente/**").hasAuthority(Ruolo.ADMIN.name()));
+
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente/**").permitAll());
+
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/insegnante/**").permitAll());
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/insegnante/**").hasAuthority(Ruolo.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/turno/**").hasAuthority(Ruolo.ADMIN.name()));
@@ -38,6 +40,7 @@ public class SecurityChain {
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/prenotazione/**").permitAll());
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/abbonamento/**").permitAll());
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/abbonamento/**").hasAuthority(Ruolo.ADMIN.name()));
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").denyAll());
 
 
 

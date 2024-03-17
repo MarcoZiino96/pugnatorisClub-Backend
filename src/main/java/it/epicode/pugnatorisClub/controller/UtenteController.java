@@ -4,14 +4,19 @@ package it.epicode.pugnatorisClub.controller;
 import com.cloudinary.Cloudinary;
 import it.epicode.pugnatorisClub.exception.BadRequestException;
 import it.epicode.pugnatorisClub.exception.CustomResponse;
+import it.epicode.pugnatorisClub.exception.LoginFaultException;
+import it.epicode.pugnatorisClub.model.ILoginResponse;
 import it.epicode.pugnatorisClub.model.Utente;
+import it.epicode.pugnatorisClub.request.PasswordRequest;
 import it.epicode.pugnatorisClub.request.UtenteRequest;
+import it.epicode.pugnatorisClub.request.UtenteRequestUpdate;
 import it.epicode.pugnatorisClub.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +35,9 @@ public class UtenteController {
     @Autowired
     Cloudinary cloudinary;
 
+    @Autowired
+    PasswordEncoder encoder;
+
 
     @GetMapping("")
     public ResponseEntity<CustomResponse> getAll(Pageable pageable){
@@ -42,10 +50,10 @@ public class UtenteController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<CustomResponse> updateUtente(@PathVariable int id, @RequestBody @Validated UtenteRequest utenteRequest, BindingResult bindingResult) {
+    public ResponseEntity<CustomResponse> updateUtente(@PathVariable int id, @RequestBody @Validated UtenteRequestUpdate utenteRequestUpdate, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
-        return CustomResponse.success(HttpStatus.OK.toString(), utenteService.update(id, utenteRequest), HttpStatus.OK);
+        return CustomResponse.success(HttpStatus.OK.toString(), utenteService.update(id, utenteRequestUpdate), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -68,5 +76,18 @@ public class UtenteController {
 
         return utenteService.updateRole(username, role);
 
+    }
+    @PatchMapping("/edit/password/{id}")
+    public ResponseEntity<CustomResponse> uploadPassword(@PathVariable long id, @RequestBody @Validated PasswordRequest passwordRequest, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors())
+            throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
+
+        Utente utente = utenteService.getUtenteById(id);
+
+        if (!encoder.matches(passwordRequest.getOldPassword(), utente.getPassword())) throw  new RuntimeException("Password sbagliata");
+        if (encoder.matches(passwordRequest.getNewPassword(), utente.getPassword())) throw  new RuntimeException("Password vecchia uguale a quella nuova");
+
+        return CustomResponse.success(HttpStatus.OK.toString(),utenteService.updatePassword(id, passwordRequest.getNewPassword()), HttpStatus.OK);
     }
 }

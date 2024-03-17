@@ -25,7 +25,7 @@ public class CorsoService{
     }
 
     public Corso getCorsoById(long id){
-        return corsoRepository.findById(id).orElseThrow(()->new NotFoundException("Il corso con id = "+id+" non è presente"));
+        return corsoRepository.findById(id).orElseThrow(()->new NotFoundException("Il corso non è presente"));
     }
 
     public Corso save(CorsoRequest corsoRequest){
@@ -42,25 +42,19 @@ public class CorsoService{
             corso.setDescrizione(corsoRequest.getDescrizione());
             corso.setNumeroMassimoPartecipanti(corsoRequest.getNumeroMassimoPartecipanti());
             corso.setCostoMensile(corsoRequest.getCostoMensile());
+
             return corsoRepository.save(corso);
         }
     }
 
     public Corso update (long id, CorsoRequest corsoRequest){
         Corso corso = getCorsoById(id);
-
-//        Optional<Corso> existingCorso = corsoRepository.findByCategoria(corsoRequest.getCategoria());
-//        if (existingCorso.isPresent()) {
-//            throw new RuntimeException("Gia esiste un corso per la categoria " + corsoRequest.getCategoria());
-//        }
-
             corso.setDurata(corsoRequest.getDurata());
             corso.setCategoria(corsoRequest.getCategoria());
             corso.setDescrizione(corsoRequest.getDescrizione());
             corso.setNumeroMassimoPartecipanti(corsoRequest.getNumeroMassimoPartecipanti());
             corso.setCostoMensile(corsoRequest.getCostoMensile());
             return corsoRepository.save(corso);
-
     }
 
     public Corso updateInsegnante(int idInsegnate, long idCorso){
@@ -68,10 +62,12 @@ public class CorsoService{
         Corso corso = getCorsoById(idCorso);
          if(corso.getMaestro() != null){
              throw  new RuntimeException("A questo corso e già stato assegnato un maestro");
-         }else{
-             corso.setMaestro(insegnante);
-             return corsoRepository.save(corso);
-         }
+         } if(insegnante.getDiscipline().contains(corso.getCategoria())){
+            corso.setMaestro(insegnante);
+        }else{
+            throw  new RuntimeException("La categoria del corso non rientra nelle discipline del maestro"+ insegnante.getNome()+" "+ insegnante.getCognome());
+        }
+        return corsoRepository.save(corso);
     }
 
     public void delete(long id){

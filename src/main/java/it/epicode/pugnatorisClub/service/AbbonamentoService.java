@@ -33,7 +33,7 @@ public class AbbonamentoService {
     }
 
     public Abbonamento getAbbonamentoById(int id){
-        return abbonamentoRepository.findById(id).orElseThrow(()-> new NotFoundException("L' abbonamento con id ="+id+" non è stato trovato"));
+        return abbonamentoRepository.findById(id).orElseThrow(()-> new NotFoundException("L' abbonamento non è stato trovato"));
     }
 
     public Abbonamento save(@RequestBody AbbonamentoRequest abbonamentoRequest){

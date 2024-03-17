@@ -2,6 +2,7 @@ package it.epicode.pugnatorisClub.request;
 
 import it.epicode.pugnatorisClub.enums.ArtiMarziali;
 import it.epicode.pugnatorisClub.enums.Durata;
+import it.epicode.pugnatorisClub.model.Insegnante;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -23,6 +24,6 @@ public class CorsoRequest {
     private Durata durata;
 
     @NotNull(message = "durata del corso obbligatoria")
-    private double costoMensile;
+    private Double costoMensile;
 
 }

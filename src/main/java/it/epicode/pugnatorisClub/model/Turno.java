@@ -1,8 +1,11 @@
 package it.epicode.pugnatorisClub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.epicode.pugnatorisClub.enums.GiornoSettimana;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class Turno {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    private GiornoSettimana giorniLezione;
+    private GiornoSettimana giornoLezione;
 
     private LocalTime inizioLezione;
 
@@ -26,4 +29,11 @@ public class Turno {
     @ManyToOne
     @JoinColumn(name = "evento_id")
     private Corso corso;
+
+
+    @OneToMany(mappedBy = "turno", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Prenotazione> prenotazioni;
+
+
 }

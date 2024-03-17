@@ -46,6 +46,11 @@ public class TurnoController {
         return CustomResponse.success(HttpStatus.OK.toString(),turnoService.update(id,  turnoRequest), HttpStatus.OK);
     }
 
+    @PatchMapping("/updateTurno/{id}")
+    public ResponseEntity<CustomResponse> updateMaestro(@PathVariable int id, @RequestParam("idCorso") long idCorso){
+        return CustomResponse.success(HttpStatus.OK.toString(),turnoService.updateTurno(id, idCorso), HttpStatus.OK );
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomResponse> deleteInsegnante(@PathVariable int id){
         turnoService.delete(id);

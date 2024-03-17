@@ -13,9 +13,9 @@ import java.util.Optional;
 
 @Repository
 public interface TurnoRepository extends JpaRepository<Turno, Integer> {
-    @Query("SELECT t FROM Turno t WHERE t.giorniLezione = :giorniLezione " +
+    @Query("SELECT t FROM Turno t WHERE t.giornoLezione = :giornoLezione " +
             "AND t.inizioLezione = :inizioLezione AND t.fineLezione = :fineLezione")
-    Optional<Turno> findByTurnoConflict( GiornoSettimana giorniLezione, LocalTime inizioLezione, LocalTime fineLezione);
+    Optional<Turno> findByTurnoConflict( GiornoSettimana giornoLezione, LocalTime inizioLezione, LocalTime fineLezione);
 
 
 }

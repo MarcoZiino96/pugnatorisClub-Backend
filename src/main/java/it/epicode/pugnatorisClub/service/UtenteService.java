@@ -5,7 +5,9 @@ import it.epicode.pugnatorisClub.enums.Ruolo;
 import it.epicode.pugnatorisClub.exception.NotFoundException;
 import it.epicode.pugnatorisClub.model.Utente;
 import it.epicode.pugnatorisClub.repository.UtenteRepository;
+import it.epicode.pugnatorisClub.request.PasswordRequest;
 import it.epicode.pugnatorisClub.request.UtenteRequest;
+import it.epicode.pugnatorisClub.request.UtenteRequestUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,11 +35,11 @@ public class UtenteService {
     }
 
     public Utente getUtenteById(long id){
-        return utenteRepository.findById(id).orElseThrow(()->new NotFoundException("Utente con id = " + id + " non trovato"));
+        return utenteRepository.findById(id).orElseThrow(()->new NotFoundException("Utente non trovato"));
     }
 
     public Utente getUtenteByUsername(String user){
-         return utenteRepository.findByUsername(user).orElseThrow(()->new NotFoundException("Utente con username = " + user + " non trovato"));
+         return utenteRepository.findByUsername(user).orElseThrow(()->new NotFoundException("Utente non trovato"));
     }
 
     public Utente save(UtenteRequest utenteRequest){
@@ -54,14 +56,12 @@ public class UtenteService {
         return  utenteRepository.save(utente);
     }
 
-    public Utente update(long id, UtenteRequest utenteRequest){
+    public Utente update(long id, UtenteRequestUpdate utenteRequestUpdate){
         Utente utente = getUtenteById(id);
-        utente.setNome(utenteRequest.getNome());
-        utente.setCognome(utenteRequest.getCognome());
-        utente.setUsername(utenteRequest.getUsername());
-        utente.setDataNascita(utenteRequest.getDataNascita());
-        utente.setEmail(utenteRequest.getEmail());
-        utente.setPassword(encoder.encode(utenteRequest.getPassword()));
+        utente.setNome(utenteRequestUpdate.getNome());
+        utente.setCognome(utenteRequestUpdate.getCognome());
+        utente.setDataNascita(utenteRequestUpdate.getDataNascita());
+        utente.setEmail(utenteRequestUpdate.getEmail());
         return utenteRepository.save(utente);
     }
 
@@ -91,5 +91,11 @@ public class UtenteService {
         message.setSubject("Registrazione alla palestra PugnatorisClub");
         message.setText("Benvenuto sulla nostra applicazione, registrazione avvenuta con successo.Dai un occhiata ai nostri corsi e prenota una lezione di prova gratuita");
         javaMailSender.send(message);
+    }
+
+    public Utente updatePassword(long id, String password) throws NotFoundException {
+        Utente u = getUtenteById(id);
+        u.setPassword(encoder.encode(password));
+       return  utenteRepository.save(u);
     }
 }

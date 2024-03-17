@@ -32,4 +32,10 @@ public class ResponseExceptionHandler {
         return new ErrorResponse(e.getMessage());
     }
 
+    @ExceptionHandler(LoginFaultException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse ExceptionHandler(LoginFaultException e){
+        return new ErrorResponse(e.getMessage());
+    }
+
 }

@@ -4,6 +4,7 @@ package it.epicode.pugnatorisClub.controller;
 import it.epicode.pugnatorisClub.exception.BadRequestException;
 import it.epicode.pugnatorisClub.exception.CustomResponse;
 import it.epicode.pugnatorisClub.exception.LoginFaultException;
+import it.epicode.pugnatorisClub.model.ILoginResponse;
 import it.epicode.pugnatorisClub.model.Utente;
 import it.epicode.pugnatorisClub.request.LoginRequest;
 import it.epicode.pugnatorisClub.request.UtenteRequest;
@@ -42,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody @Validated LoginRequest loginRequest, BindingResult bindingResult){
+    public ResponseEntity<ILoginResponse>login(@RequestBody @Validated LoginRequest loginRequest, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new BadRequestException(bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList().toString());
         }
@@ -50,7 +51,7 @@ public class AuthController {
         Utente user = utenteService.getUtenteByUsername(loginRequest.getUsername());
 
         if(encoder.matches(loginRequest.getPassword(), user.getPassword())){
-            return jwtTools.createToken(user);
+            return new ResponseEntity<>(new ILoginResponse(jwtTools.createToken(user), user),HttpStatus.OK);
         }
         else{
             throw new LoginFaultException("username/password errate");

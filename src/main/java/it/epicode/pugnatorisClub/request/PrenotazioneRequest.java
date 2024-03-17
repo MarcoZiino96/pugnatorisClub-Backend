@@ -1,6 +1,7 @@
 package it.epicode.pugnatorisClub.request;
 
 import it.epicode.pugnatorisClub.model.Corso;
+import it.epicode.pugnatorisClub.model.Turno;
 import it.epicode.pugnatorisClub.model.Utente;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,8 +20,5 @@ public class PrenotazioneRequest {
     private Long utente;
 
     @NotNull(message = ("campo obbligatorio"))
-    private LocalDate dataPrenotazione;
-
-    @NotNull(message = ("campo obbligatorio"))
-    private  LocalDate dataScadenza;
+    private Integer turno;
 }

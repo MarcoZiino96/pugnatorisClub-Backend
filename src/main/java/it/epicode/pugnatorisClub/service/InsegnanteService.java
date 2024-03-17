@@ -25,7 +25,7 @@ public class InsegnanteService {
     }
 
     public Insegnante getInsegnanteById(int id){
-        return insegnanteRepository.findById(id).orElseThrow(()->new NotFoundException("Utente con id = " + id + " non trovato"));
+        return insegnanteRepository.findById(id).orElseThrow(()->new NotFoundException("Insegnante non trovato"));
     }
 
     public Insegnante save(InsegnanteRequest insegnanteRequest){

@@ -4,6 +4,8 @@ package it.epicode.pugnatorisClub.service;
 import it.epicode.pugnatorisClub.enums.ArtiMarziali;
 import it.epicode.pugnatorisClub.enums.GiornoSettimana;
 import it.epicode.pugnatorisClub.exception.NotFoundException;
+import it.epicode.pugnatorisClub.model.Corso;
+import it.epicode.pugnatorisClub.model.Insegnante;
 import it.epicode.pugnatorisClub.model.Turno;
 import it.epicode.pugnatorisClub.repository.TurnoRepository;
 import it.epicode.pugnatorisClub.request.TurnoRequest;
@@ -21,12 +23,15 @@ public class TurnoService{
     @Autowired
     TurnoRepository turnoRepository;
 
+    @Autowired
+    CorsoService corsoService;
+
     public List<Turno> getAll(){
         return turnoRepository.findAll();
     }
 
     public Turno getTurnoById(int id){
-        return turnoRepository.findById(id).orElseThrow(()-> new NotFoundException("Turno con id =" + id + "non trovato"));
+        return turnoRepository.findById(id).orElseThrow(()-> new NotFoundException("Turno non trovato"));
     }
 
     public Turno save(TurnoRequest turnoRequest){
@@ -41,7 +46,7 @@ public class TurnoService{
             throw new RuntimeException("Turno con gli stessi valori già presente");
         }
 
-        turno.setGiorniLezione(giorniLezione);
+        turno.setGiornoLezione(giorniLezione);
         turno.setInizioLezione(inizioLezione);
         turno.setFineLezione(fineLezione);
         return turnoRepository.save(turno);
@@ -59,10 +64,22 @@ public class TurnoService{
             throw new RuntimeException("Turno con gli stessi valori già presente");
         }
 
-            else turno.setGiorniLezione(giornoLezione);
+            else turno.setGiornoLezione(giornoLezione);
                  turno.setInizioLezione(inizioLezione);
                  turno.setFineLezione(fineLezione);
 
+        return turnoRepository.save(turno);
+    }
+
+    public Turno updateTurno(int idTurno, long idCorso){
+        Turno turno = getTurnoById(idTurno);
+        Corso corso = corsoService.getCorsoById(idCorso);
+        if(corso.getTurni().contains(turno)){
+            throw  new RuntimeException("questo turno è gia presente nel corso di "+ corso.getCategoria());
+
+        }else{
+            turno.setCorso(corso);
+        }
         return turnoRepository.save(turno);
     }
 
