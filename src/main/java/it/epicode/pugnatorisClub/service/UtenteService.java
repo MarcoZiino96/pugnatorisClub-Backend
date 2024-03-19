@@ -3,6 +3,7 @@ package it.epicode.pugnatorisClub.service;
 
 import it.epicode.pugnatorisClub.enums.Ruolo;
 import it.epicode.pugnatorisClub.exception.NotFoundException;
+import it.epicode.pugnatorisClub.model.Prenotazione;
 import it.epicode.pugnatorisClub.model.Utente;
 import it.epicode.pugnatorisClub.repository.UtenteRepository;
 import it.epicode.pugnatorisClub.request.PasswordRequest;
@@ -89,7 +90,7 @@ public class UtenteService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Registrazione alla palestra PugnatorisClub");
-        message.setText("Benvenuto sulla nostra applicazione, registrazione avvenuta con successo.Dai un occhiata ai nostri corsi e prenota una lezione di prova gratuita");
+        message.setText("Benvenuto sulla nostra applicazione, registrazione avvenuta con successo. Dai un'occhiata ai nostri corsi e prenota una lezione di prova gratuita.");
         javaMailSender.send(message);
     }
 
@@ -98,4 +99,9 @@ public class UtenteService {
         u.setPassword(encoder.encode(password));
        return  utenteRepository.save(u);
     }
+
+    public List<Prenotazione> prenotazioniUser(long id){
+        return utenteRepository.prenotazioniUtente(id);
+    }
+
 }

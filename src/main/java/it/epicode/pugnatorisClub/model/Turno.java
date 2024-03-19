@@ -28,6 +28,7 @@ public class Turno {
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
+    @JsonIgnore
     private Corso corso;
 
 

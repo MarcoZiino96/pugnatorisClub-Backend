@@ -49,6 +49,6 @@ public class AbbonamentoController {
     public ResponseEntity<CustomResponse> deletePrenotazione(@PathVariable int id){
         Abbonamento abbonamento = abbonamentoService.getAbbonamentoById(id);
         abbonamentoService.delete(id);
-        return CustomResponse.emptyResponse("Il tuo abbonamento con id = "+id+" è stato cancellato", HttpStatus.OK);
+        return CustomResponse.emptyResponse("Il tuo abbonamento con id = " +id+ " è stato cancellato", HttpStatus.OK);
     }
 }

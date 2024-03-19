@@ -2,6 +2,7 @@ package it.epicode.pugnatorisClub.service;
 import it.epicode.pugnatorisClub.exception.NotFoundException;
 import it.epicode.pugnatorisClub.model.Corso;
 import it.epicode.pugnatorisClub.model.Insegnante;
+import it.epicode.pugnatorisClub.model.Turno;
 import it.epicode.pugnatorisClub.repository.CorsoRepository;
 import it.epicode.pugnatorisClub.request.CorsoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,9 @@ public class CorsoService{
     public void delete(long id){
         Corso corso = getCorsoById(id);
         corsoRepository.delete(corso);
+    }
+
+    public List<Turno> turniCorsoById(long id){
+        return corsoRepository.turniCorso(id);
     }
 }

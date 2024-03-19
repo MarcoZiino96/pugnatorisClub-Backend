@@ -34,6 +34,10 @@ public class CorsoController {
         return CustomResponse.success(HttpStatus.OK.toString(),corsoService.getCorsoById(id), HttpStatus.OK );
     }
 
+    @GetMapping("/turni/{id}")
+    public ResponseEntity<CustomResponse> getEvent(@PathVariable long id) {
+        return CustomResponse.success(HttpStatus.OK.toString(), corsoService.turniCorsoById(id), HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<CustomResponse> saveCorso(@RequestBody @Validated CorsoRequest corsoRequest, BindingResult bindingResult){

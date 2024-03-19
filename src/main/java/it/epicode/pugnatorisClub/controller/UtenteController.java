@@ -49,6 +49,11 @@ public class UtenteController {
         return CustomResponse.success(HttpStatus.OK.toString(), utenteService.getUtenteById(id), HttpStatus.OK);
     }
 
+    @GetMapping("prenotazioni/{id}")
+    public ResponseEntity<CustomResponse> getPrenotazioniUtente(@PathVariable long id){
+        return CustomResponse.success((HttpStatus.OK.toString()), utenteService.prenotazioniUser(id), HttpStatus.OK);
+    }
+
     @PutMapping("/edit/{id}")
     public ResponseEntity<CustomResponse> updateUtente(@PathVariable int id, @RequestBody @Validated UtenteRequestUpdate utenteRequestUpdate, BindingResult bindingResult) {
         if (bindingResult.hasErrors())

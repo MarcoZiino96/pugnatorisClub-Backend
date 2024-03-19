@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,11 +36,11 @@ public class Corso {
 
     @JsonIgnore
     @OneToMany(mappedBy = "corso", cascade = CascadeType.REMOVE)
-    private List<Turno> turni;
+    private List<Turno> turni = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "corso", cascade = CascadeType.REMOVE)
-    private List<Prenotazione> prenotazioni;
+    private List<Prenotazione> prenotazioni = new ArrayList<>();
 
 
     @ManyToOne
@@ -48,5 +49,5 @@ public class Corso {
 
     @JsonIgnore
     @OneToMany(mappedBy = "corso",  cascade = CascadeType.REMOVE)
-    private List<Abbonamento> abbonati;
+    private List<Abbonamento> abbonati = new ArrayList<>();
 }
