@@ -40,8 +40,8 @@ public class UtenteController {
 
 
     @GetMapping("")
-    public ResponseEntity<CustomResponse> getAll(Pageable pageable){
-            return CustomResponse.success(HttpStatus.OK.toString(), utenteService.getAll(pageable), HttpStatus.OK);
+    public ResponseEntity<CustomResponse> getAll(){
+            return CustomResponse.success(HttpStatus.OK.toString(), utenteService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -52,6 +52,11 @@ public class UtenteController {
     @GetMapping("prenotazioni/{id}")
     public ResponseEntity<CustomResponse> getPrenotazioniUtente(@PathVariable long id){
         return CustomResponse.success((HttpStatus.OK.toString()), utenteService.prenotazioniUser(id), HttpStatus.OK);
+    }
+
+    @GetMapping("abbonamenti/{id}")
+    public ResponseEntity<CustomResponse> getAbbonamnetiUtente(@PathVariable long id){
+        return CustomResponse.success((HttpStatus.OK.toString()), utenteService.abbonamnetiUser(id), HttpStatus.OK);
     }
 
     @PutMapping("/edit/{id}")

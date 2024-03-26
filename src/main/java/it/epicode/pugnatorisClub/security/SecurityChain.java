@@ -30,8 +30,9 @@ public class SecurityChain {
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/auth/**").permitAll());
 
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente").hasAuthority(Ruolo.ADMIN.name()));
+        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente/delete/**").hasAuthority(Ruolo.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/utente/**").permitAll());
-
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/insegnante/**").permitAll());
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/insegnante/**").hasAuthority(Ruolo.ADMIN.name()));
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/turno/**").permitAll());

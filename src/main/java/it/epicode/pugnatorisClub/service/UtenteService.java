@@ -3,6 +3,7 @@ package it.epicode.pugnatorisClub.service;
 
 import it.epicode.pugnatorisClub.enums.Ruolo;
 import it.epicode.pugnatorisClub.exception.NotFoundException;
+import it.epicode.pugnatorisClub.model.Abbonamento;
 import it.epicode.pugnatorisClub.model.Prenotazione;
 import it.epicode.pugnatorisClub.model.Utente;
 import it.epicode.pugnatorisClub.repository.UtenteRepository;
@@ -31,8 +32,8 @@ public class UtenteService {
     @Autowired
     private JavaMailSenderImpl javaMailSender;
 
-    public Page<Utente> getAll(Pageable pageable){
-        return utenteRepository.findAll(pageable);
+    public List<Utente> getAll(){
+        return utenteRepository.findAll();
     }
 
     public Utente getUtenteById(long id){
@@ -102,6 +103,11 @@ public class UtenteService {
 
     public List<Prenotazione> prenotazioniUser(long id){
         return utenteRepository.prenotazioniUtente(id);
+    }
+
+
+    public List<Abbonamento> abbonamnetiUser(long id){
+        return utenteRepository.abbonamentiUtente(id);
     }
 
 }

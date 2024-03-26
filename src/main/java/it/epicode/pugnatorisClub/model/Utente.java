@@ -43,11 +43,11 @@ public class Utente implements UserDetails {
     private Ruolo ruolo;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.REMOVE)
     private List<Prenotazione> prenotazioni = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.REMOVE)
     private List<Abbonamento> abbonamenti = new ArrayList<>();
 
 
