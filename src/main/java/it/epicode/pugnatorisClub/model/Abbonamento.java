@@ -33,6 +33,7 @@ public class Abbonamento {
    private Utente utente;
 
    public void setAbbonamento() {
+
       switch (durata) {
          case MENSILE:
             dataAttivazione = LocalDate.now();
@@ -61,4 +62,5 @@ public class Abbonamento {
             throw new IllegalArgumentException("Durata non gestita: " + durata);
       }
    }
+
 }

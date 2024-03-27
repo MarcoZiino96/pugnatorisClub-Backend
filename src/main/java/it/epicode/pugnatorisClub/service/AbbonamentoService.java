@@ -28,6 +28,9 @@ public class AbbonamentoService {
     @Autowired
     UtenteService utenteService;
 
+    @Autowired
+    PrenotazioneService prenotazioneService;
+
     public List<Abbonamento> getAll(){
         return abbonamentoRepository.findAll();
     }
@@ -55,4 +58,24 @@ public class AbbonamentoService {
         Abbonamento abbonamento = getAbbonamentoById(id);
         abbonamentoRepository.delete(abbonamento);
     }
+
+    public void aggiornaDataBase(){
+
+        List<Prenotazione> prenotazioni = prenotazioneService.getAll();
+        List<Abbonamento> abbonamenti = getAll();
+        LocalDate dataGiornaliera = LocalDate.now();
+
+        for(Abbonamento abbonamento : abbonamenti){
+            if (abbonamento.getDataScadenza().isBefore(dataGiornaliera)){
+                delete(abbonamento.getId());
+            }
+        }
+
+        for(Prenotazione prenotazione : prenotazioni){
+            if (prenotazione.getDataScadenza().isBefore(dataGiornaliera)){
+                prenotazioneService.delete(prenotazione.getId());
+            }
+        }
+    }
+
 }

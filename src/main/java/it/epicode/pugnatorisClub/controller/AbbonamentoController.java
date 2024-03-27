@@ -45,10 +45,17 @@ public class AbbonamentoController {
     }
 
     @DeleteMapping("/delete/{id}")
-
     public ResponseEntity<CustomResponse> deletePrenotazione(@PathVariable int id){
         Abbonamento abbonamento = abbonamentoService.getAbbonamentoById(id);
         abbonamentoService.delete(id);
         return CustomResponse.emptyResponse("Il tuo abbonamento con id = " +id+ " è stato cancellato", HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/dettagli")
+    public ResponseEntity<CustomResponse> aggiornaDatabase(){
+        abbonamentoService.aggiornaDataBase();
+        return CustomResponse.emptyResponse("Il database è stato aggiornato", HttpStatus.OK);
+    }
 }
+
+
